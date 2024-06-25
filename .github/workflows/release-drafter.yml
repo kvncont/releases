@@ -34,7 +34,7 @@ jobs:
         if: ${{ contains(github.ref_name, 'release/v') || contains(github.base_ref, 'release/v') }}
         uses: release-drafter/release-drafter@v6
         with:
-          config-name: release-drafter-release.yml
+          config-name: release-drafter-hotfix.yml
           commitish: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
