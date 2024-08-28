@@ -4,12 +4,11 @@ on:
   push:
     branches:
       - main
-      - release/v**
+      - hotfix/**
   pull_request:
     types: [opened, reopened, synchronize]
     branches:
       - main
-      - release/v**
 
 permissions:
   contents: read
@@ -21,20 +20,22 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
+    env:
     steps:
-      - name: Release drafter (Main)
-        if: ${{ github.ref_name == 'main' || github.base_ref == 'main' }}
+      - name: Release drafter
+        # if: ${{ github.ref_name == 'main' || github.base_ref == 'main' }}
         uses: release-drafter/release-drafter@v6
         with:
           config-name: release-drafter-main.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Release drafter (Hotfix)
-        if: ${{ contains(github.ref_name, 'release/v') || contains(github.base_ref, 'release/v') }}
-        uses: release-drafter/release-drafter@v6
-        with:
-          config-name: release-drafter-hotfix.yml
           commitish: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Release drafter (Hotfix)
+      #   if: ${{ contains(github.ref_name, 'release/v') || contains(github.base_ref, 'release/v') }}
+      #   uses: release-drafter/release-drafter@v6
+      #   with:
+      #     config-name: release-drafter-hotfix.yml
+      #     commitish: ${{ github.ref_name }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
