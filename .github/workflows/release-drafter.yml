@@ -20,7 +20,7 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
-    env:
+    # env:
     steps:
       - name: Release drafter
         # if: ${{ github.ref_name == 'main' || github.base_ref == 'main' }}
